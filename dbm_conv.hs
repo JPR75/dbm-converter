@@ -5,6 +5,7 @@ module Main
   where
 
 import IO
+import Text.Printf
 
 main = do
   putStrLn "dBm convertor v1.0.0 ; 50 Ohm load"
@@ -19,19 +20,19 @@ getChoice = do
     0 -> return ()
     1 -> do putStrLn "Vpk-pk (V) ? : "
             result <- getValue 1
-            putStrLn ("\n  " ++ show (fst result) ++ " V pk-pk => " ++ show (snd result) ++ " dBm")
+            putStrLn $ printf "\n  %f V pk-pk => %.4f dBm" (fst result:: Double) (snd result)
             getChoice
     2 -> do putStrLn "V rms (V) ? : "
             result <- getValue 2
-            putStrLn ("\n  " ++ show (fst result) ++ " V rms => " ++ show (snd result) ++ " dBm")
+            putStrLn $ printf "\n  %f V rms => %.4f dBm" (fst result:: Double) (snd result)
             getChoice
     3 -> do putStrLn "dbm ? : "
             result <- getValue 3
-            putStrLn ("\n  " ++ show (fst result) ++ " dBm => " ++ show (snd result) ++ " V pk-pk")
+            putStrLn $ printf "\n  %f dBm => %.4f V pk-pk" (fst result:: Double) (snd result)
             getChoice
     4 -> do putStrLn "dbm ? : "
             result <- getValue 4
-            putStrLn ("\n  " ++ show (fst result) ++ " dBm => " ++ show (snd result) ++ " V rms")
+            putStrLn $ printf "\n  %f dBm => %.4f V pk-pk" (fst result:: Double) (snd result)
             getChoice
     _ -> getChoice
 
