@@ -3,11 +3,11 @@
 # License: LGPLv3
 
 from tkinter import *
-from math    import *
+from math    import log10, sqrt
 
-###############################################################################
+################################################################################
 # Get the input value
-###############################################################################
+################################################################################
 def convert (event) :
   try :
     val = eval(entryField.get())
@@ -26,16 +26,16 @@ def convert (event) :
     else :
       result.configure(text = 'Unexpected convertion, error in soft !')
   except :
-    result.configure(text = 'Bad value, try a number!')
+    result.configure(text = 'Bad value, try a number or a voltage differant of 0V!')
 
-###############################################################################
-################################  Main  #######################################
-###############################################################################
+################################################################################
+################################  Main  ########################################
+################################################################################
 convWindows = Tk()
+convWindows.title('Volt <=> dBm ; v1.0.0')
 
 # Title and version
 Label(convWindows, text = 'Volt to dBm convertor on a 50 Ohm load').grid(row  = 0, column = 0, columnspan = 2, padx = 10)
-Label(convWindows, text = 'v1.0.0').grid(row  = 1, column = 0, columnspan = 2, padx = 10)
 
 # Radio buttons
 convChoice = IntVar()
@@ -55,15 +55,13 @@ entryField.bind("<Return>", convert)
 entryField.grid(row = 4, column = 0, columnspan = 2, padx = 10 , pady = 5)
 
 # Print result
-result = Label(convWindows, text = 'xxx <=> yyy', relief = GROOVE)
+result = Label(convWindows, text = 'xxx <=> yyy', relief = GROOVE, bg = '#F0F0E0', bd = 2)
 result.grid(row = 5, column = 0, columnspan = 2, padx = 10, pady = 5)
 
 # Perform calculation button
-calcButton = Button(convWindows, text = 'Convert', command = lambda : convert('0'))
-calcButton.grid(row = 6, column = 0, pady = 5)
+Button(convWindows, text = 'Convert', command = lambda : convert('0')).grid(row = 6, column = 0, pady = 5)
 
 # Quit button
-quitButton = Button(convWindows, text='Quit', command = convWindows.destroy)
-quitButton.grid(row = 6, column = 1, pady = 5)
+Button(convWindows, text='Quit', command = convWindows.destroy).grid(row = 6, column = 1, pady = 5)
 
 convWindows.mainloop()
