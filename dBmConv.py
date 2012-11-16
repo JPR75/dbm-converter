@@ -18,15 +18,19 @@ def convert (event) :
       convertedValue = "{:.3f} V rms <=> {:.3f} dBm"
       result.configure(text = convertedValue.format(val, 10.0 * log10(val**2 * 20)))
     elif convChoice.get() == 3 :
-      convertedValue = "{:.3f} dBm <=> {:.3f} V pk-pk"
+      convertedValue = "{:.3f} dBm <=> {:.3e} V pk-pk"
       result.configure(text = convertedValue.format(val, sqrt(0.4 * 10**(val / 10.0))))
     elif convChoice.get() == 4 :
-      convertedValue = "{:.3f} dBm <=> {:.3f} V rms"
+      convertedValue = "{:.3f} dBm <=> {:.3e} V rms"
       result.configure(text = convertedValue.format(val, sqrt(0.05 * 10**(val / 10.0))))
     else :
-      result.configure(text = 'Unexpected convertion, error in soft !')
+      result.configure(text = 'Unexpected convertion, error in soft!')
+  except ValueError :
+    result.configure(text = 'Bad value, input should be different from 0V!')
+  except OverflowError :
+    result.configure(text = 'Bad value, input is too big!')
   except :
-    result.configure(text = 'Bad value, try a number or a voltage differant of 0V!')
+    result.configure(text = 'Bad value, try a number')
 
 ################################################################################
 ################################  Main  ########################################
